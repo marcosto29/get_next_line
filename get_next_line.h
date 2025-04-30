@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:39 by matoledo          #+#    #+#             */
-/*   Updated: 2025/04/30 20:36:23 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:08:45 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 //if BUFFER_SIZE is not define on the compiler with -D
 //create the macro with 42 value
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 42
 # endif
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memset(void *dest, int c, size_t n);
 char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *c);
 

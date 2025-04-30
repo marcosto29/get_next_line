@@ -6,14 +6,14 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:17 by matoledo          #+#    #+#             */
-/*   Updated: 2025/04/30 20:39:34 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:10:12 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*search_end_of_line(char *pt_buffer, int bytes_read)
+static char	*search_end_of_line(char *pt_buffer, int bytes_read)
 {
 	char	*pt_aux;
 	char	*pt_return;
@@ -29,7 +29,7 @@ char	*search_end_of_line(char *pt_buffer, int bytes_read)
 	return (pt_return);
 }
 
-char	*read_buffer(int fd, int *bytes_read)
+static char	*read_buffer(int fd, int *bytes_read)
 {
 	char	*pt_buffer;
 
@@ -44,7 +44,7 @@ char	*read_buffer(int fd, int *bytes_read)
 
 //add more characters from the file to the buffer
 //uses auxiliar pointers to manage the memory correctly
-char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
+static char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
 {
 	char		*pt_aux;
 	char		*pt_read;
@@ -52,7 +52,7 @@ char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
 	pt_aux = ft_strdup(pt_buffer);
 	free(pt_buffer);
 	pt_read = read_buffer(fd, bytes_read);
-	if (*bytes_read == -1 || !pt_read || !pt_aux)
+	if (!pt_read || !pt_aux || *bytes_read == -1)
 		return (free(pt_aux), free(pt_read), NULL);
 	pt_buffer = ft_calloc(sizeof(char), ft_strlen(pt_aux) + BUFFER_SIZE + 1);
 	if (!pt_buffer)
@@ -62,7 +62,7 @@ char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
 	return (free(pt_aux), free(pt_read), pt_buffer);
 }
 
-char	*readjust_buffer(char *pt_buffer)
+static char	*readjust_buffer(char *pt_buffer)
 {
 	char	*pt_aux;
 	char	*pt_return;
@@ -79,7 +79,7 @@ char	*readjust_buffer(char *pt_buffer)
 char	*get_next_line(int fd)
 {
 	static char	*pt_buffer;
-	int			bytes_read;
+	static int	bytes_read;
 	char		*pt_return;
 
 	if (fd == -1)
@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 		if (!pt_buffer)
 			return (NULL);
 	}
-	while (ft_strchr(pt_buffer, '\n') == 0 && (bytes_read && bytes_read != 0))
+	while (ft_strchr(pt_buffer, '\n') == 0 && bytes_read != 0)
 	{
 		pt_buffer = increment_readed_buffer(pt_buffer, fd, &bytes_read);
 		if (!pt_buffer)
@@ -108,14 +108,14 @@ char	*get_next_line(int fd)
 // 	char	*line;
 // 	int		fd;
 
-// 	// printf("Test01\n");
-// 	// fd = open("test01.txt", O_RDONLY);
-// 	// while ((line = get_next_line(fd)))
-// 	// {
-// 	// 	printf("%s", line);
-// 	// 	free(line);
-// 	// }
-// 	// close(fd);
+// 	printf("Test01\n");
+// 	fd = open("test01.txt", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
 // 	// fd = open("test02.txt", O_RDONLY);
 // 	// while ((line = get_next_line(fd)))
 // 	// {
@@ -130,13 +130,13 @@ char	*get_next_line(int fd)
 // 	// 	free(line);
 // 	// }
 // 	// close(fd);
-// 	fd = open("test04.txt", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
+// 	// fd = open("test04.txt", O_RDONLY);
+// 	// while ((line = get_next_line(fd)))
+// 	// {
+// 	// 	printf("%s", line);
+// 	// 	free(line);
+// 	// }
+// 	// close(fd);
 // 	// fd = open("test05.txt", O_RDONLY);
 // 	// while ((line = get_next_line(fd)))
 // 	// {

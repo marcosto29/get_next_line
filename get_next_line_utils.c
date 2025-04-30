@@ -6,34 +6,27 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:51:32 by matoledo          #+#    #+#             */
-/*   Updated: 2025/04/30 20:25:56 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:52:55 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *dest, int c, size_t n)
-{
-	char	*pt_dest;
-
-	pt_dest = dest;
-	while (n--)
-	{
-		*pt_dest++ = (char)c;
-	}
-	return (dest);
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	total;
 	char	*pt_call;
+	char	*pt_aux;
 
 	total = nmemb * size;
 	pt_call = malloc(total);
 	if (!pt_call)
 		return (0);
-	ft_memset(pt_call, '\0', total);
+	pt_aux = pt_call;
+	while (total--)
+	{
+		*pt_aux++ = '\0';
+	}
 	return (pt_call);
 }
 
