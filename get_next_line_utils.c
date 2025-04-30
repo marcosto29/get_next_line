@@ -6,12 +6,11 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:51:32 by matoledo          #+#    #+#             */
-/*   Updated: 2025/04/30 15:36:22 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/04/30 20:25:56 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 void	*ft_memset(void *dest, int c, size_t n)
 {
