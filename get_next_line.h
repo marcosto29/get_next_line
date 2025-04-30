@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:39 by matoledo          #+#    #+#             */
-/*   Updated: 2025/04/30 12:31:53 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:37:36 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memset(void *dest, int c, size_t n);
+char	*ft_strdup(const char *s);
+size_t	ft_strlen(const char *c);
 
 #endif
