@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:17 by matoledo          #+#    #+#             */
-/*   Updated: 2025/05/02 12:55:20 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:29:52 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,30 +78,30 @@ static char	*readjust_buffer(char *pt_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*pt_buf[1024];
+	static char	*buf[42];
 	int			bytes_read;
-	char		*pt_ret;
+	char		*ret;
 
 	bytes_read = 0;
-	if (!pt_buf[fd] || !*pt_buf[fd])
+	if (!buf[fd % 42] || !*buf[fd % 42])
 	{
-		pt_buf[fd] = read_buffer(fd, &bytes_read);
-		if (!pt_buf[fd])
+		buf[fd % 42] = read_buffer(fd, &bytes_read);
+		if (!buf[fd % 42])
 			return (NULL);
 	}
-	while (ft_strchr(pt_buf[fd], '\n') == 0)
+	while (ft_strchr(buf[fd % 42], '\n') == 0)
 	{
-		pt_buf[fd] = increment_readed_buffer(pt_buf[fd], fd, &bytes_read);
-		if (!pt_buf[fd])
-			return (pt_buf[fd] = NULL, NULL);
+		buf[fd] = increment_readed_buffer(buf[fd % 42], fd, &bytes_read);
+		if (!buf[fd % 42])
+			return (buf[fd % 42] = NULL, NULL);
 		if (bytes_read == 0)
 			break ;
 	}
-	pt_ret = search_end_of_line(pt_buf[fd]);
-	if (!pt_ret || !*pt_ret)
-		return (free(pt_ret), free(pt_buf[fd]), pt_buf[fd] = NULL, NULL);
-	pt_buf[fd] = readjust_buffer(pt_buf[fd]);
-	return (pt_ret);
+	ret = search_end_of_line(buf[fd % 42]);
+	if (!ret || !*ret)
+		return (free(ret), free(buf[fd % 42]), buf[fd % 42] = NULL, NULL);
+	buf[fd % 42] = readjust_buffer(buf[fd % 42]);
+	return (ret);
 }
 
 // int	main(void)
