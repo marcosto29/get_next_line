@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:17 by matoledo          #+#    #+#             */
-/*   Updated: 2025/05/05 12:05:57 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:29:52 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*search_end_of_line(char *pt_buffer)
 {
@@ -22,7 +22,7 @@ static char	*search_end_of_line(char *pt_buffer)
 		pt_aux = ft_strchr(pt_buffer, '\0');
 	pt_return = ft_calloc(sizeof(char), (pt_aux - pt_buffer) + 2);
 	if (!pt_return)
-		return (0);
+		return (NULL);
 	ft_memcpy(pt_return, pt_buffer, pt_aux - pt_buffer + 1);
 	return (pt_return);
 }
@@ -35,7 +35,7 @@ static char	*read_buffer(int fd, int *bytes_read)
 		return (NULL);
 	pt_buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!pt_buffer)
-		return (0);
+		return (NULL);
 	*bytes_read = (int)read(fd, pt_buffer, BUFFER_SIZE);
 	if (*bytes_read == -1)
 		return (free(pt_buffer), NULL);
@@ -78,30 +78,30 @@ static char	*readjust_buffer(char *pt_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*pt_buffer;
+	static char	*buf[42];
 	int			bytes_read;
-	char		*pt_return;
+	char		*ret;
 
 	bytes_read = 0;
-	if (!pt_buffer || !*pt_buffer)
+	if (!buf[fd % 42] || !*buf[fd % 42])
 	{
-		pt_buffer = read_buffer(fd, &bytes_read);
-		if (!pt_buffer)
+		buf[fd % 42] = read_buffer(fd, &bytes_read);
+		if (!buf[fd % 42])
 			return (NULL);
 	}
-	while (ft_strchr(pt_buffer, '\n') == 0)
+	while (ft_strchr(buf[fd % 42], '\n') == 0)
 	{
-		pt_buffer = increment_readed_buffer(pt_buffer, fd, &bytes_read);
-		if (!pt_buffer)
-			return (pt_buffer = NULL, NULL);
+		buf[fd] = increment_readed_buffer(buf[fd % 42], fd, &bytes_read);
+		if (!buf[fd % 42])
+			return (buf[fd % 42] = NULL, NULL);
 		if (bytes_read == 0)
 			break ;
 	}
-	pt_return = search_end_of_line(pt_buffer);
-	if (!pt_return || !*pt_return)
-		return (free(pt_return), free(pt_buffer), pt_buffer = NULL, NULL);
-	pt_buffer = readjust_buffer(pt_buffer);
-	return (pt_return);
+	ret = search_end_of_line(buf[fd % 42]);
+	if (!ret || !*ret)
+		return (free(ret), free(buf[fd % 42]), buf[fd % 42] = NULL, NULL);
+	buf[fd % 42] = readjust_buffer(buf[fd % 42]);
+	return (ret);
 }
 
 // int	main(void)
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 // 	int		fd2;
 
 // 	printf("Test01\n");
-// 	fd = open("test01.txt", O_RDONLY);
+// 	fd = open("test07.txt", O_RDONLY);
 // 	fd2 = open("test02.txt", O_RDONLY);
 // 	line = get_next_line(fd);
 // 	printf("%s", line);
