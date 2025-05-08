@@ -44,6 +44,7 @@ static char	*read_buffer(int fd, int *bytes_read)
 
 //add more characters from the file to the buffer
 //uses auxiliar pointers to manage the memory correctly
+//change this to reuse thee same buffer that reads it instead of using two
 static char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
 {
 	char		*pt_aux;
