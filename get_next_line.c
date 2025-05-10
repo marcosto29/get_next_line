@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:17 by matoledo          #+#    #+#             */
-/*   Updated: 2025/05/02 12:07:37 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:05:57 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*read_buffer(int fd, int *bytes_read)
 
 //add more characters from the file to the buffer
 //uses auxiliar pointers to manage the memory correctly
+//change this to reuse thee same buffer that reads it instead of using two
 static char	*increment_readed_buffer(char *pt_buffer, int fd, int *bytes_read)
 {
 	char		*pt_aux;

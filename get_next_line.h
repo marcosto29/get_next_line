@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:49:39 by matoledo          #+#    #+#             */
-/*   Updated: 2025/05/06 14:19:44 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:27:09 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 //macros normally cannot be changed, thats the main difference with global variables
 //when the code is compiled the macro is changed with the value choosed
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 512
+#  define BUFFER_SIZE 42
 # endif
 
 char	*get_next_line(int fd);
