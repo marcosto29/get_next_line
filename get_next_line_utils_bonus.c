@@ -6,7 +6,7 @@
 /*   By: matoledo <matoledo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:51:32 by matoledo          #+#    #+#             */
-/*   Updated: 2025/05/02 12:08:50 by matoledo         ###   ########.fr       */
+/*   Updated: 2025/05/11 13:54:40 by matoledo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,22 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*pt_return;
+	size_t	len_s1;
+	size_t	len_s2;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	pt_return = ft_calloc(sizeof(char), len_s1 + len_s2 + 1);
+	if (!pt_return)
+		return (0);
+	ft_memcpy(pt_return, s1, len_s1);
+	ft_memcpy(pt_return + len_s1, s2, len_s2);
+	return (pt_return);
+}
+
 char	*ft_strdup(const char *s)
 {
 	size_t	allocate_memory;
@@ -83,5 +99,22 @@ char	*ft_strdup(const char *s)
 	if (!pt_return)
 		return (0);
 	ft_memcpy(pt_return, s, allocate_memory);
+	return (pt_return);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*pt_return;
+	size_t	s_len;
+
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (start + len > s_len)
+		len = s_len - start;
+	pt_return = ft_calloc(sizeof(char), len + 1);
+	if (!pt_return)
+		return (0);
+	ft_memcpy(pt_return, s + start, len);
 	return (pt_return);
 }
